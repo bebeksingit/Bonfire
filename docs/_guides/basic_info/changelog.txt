@@ -11,6 +11,14 @@ Additions:
 - New function in the application_helper: *e()* is a convenience function for echoing htmlentities($str) in views. Highly recommended to replace all uses of echo when the user would have entered the data.
 - New function in the application_helper: *array_implode()* allows imploding multi-dimensional arrays with proper glues for multiple level support.
 
+Enhancements:
+- Upgraded to CodeIgniter 2.0.3
+
+
+Bugs:
+- Template and Assets lib now work with the new CodeIgniter release.
+
+
 Version 0.2
 
 Additions:

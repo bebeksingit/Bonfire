@@ -770,6 +770,8 @@ class Template {
 	{ 
 		if (empty($view))	return '';
 		
+		
+		
 		// If no active theme is present, use the default theme.
 		$theme = empty(self::$active_theme) ? self::$default_theme : self::$active_theme;
 	
@@ -857,13 +859,13 @@ class Template {
 			if (!empty(self::$active_theme) && is_file(self::$site_path . $path .'/'. self::$active_theme . $view .'.php'))
 			{
 				if (self::$debug) { echo 'Found <b>'. $view .'</b> in Active Theme.<br/>'; }
-				$view_path = self::$site_path . $path .'/'. self::$active_theme .'/';
+				$view_path = self::$site_path . $path .'/'. self::$active_theme;
 			}
 			
 			/*
 				If not in the active theme, then try the default theme
 			*/
-			if (self::$debug) { echo "[Find File] Looking for view in default theme: <b>". self::$site_path . $path .'/'. self::$default_theme . $view .'.php</b><br/>'; }
+			if (self::$debug && empty($view_path)) { echo "[Find File] Looking for view in default theme: <b>". self::$site_path . $path .'/'. self::$default_theme . $view .'.php</b><br/>'; }
 			if (empty($view_path) && is_file(self::$site_path . $path .'/'. self::$default_theme . $view .'.php'))
 			{
 				if (self::$debug) { echo 'Found <b>'. $view .'</b> in Default Theme.<br/>'; }
@@ -884,10 +886,10 @@ class Template {
 			// Grab the output of the view.
 			if (self::$parse_views === true)
 			{
-				$output = self::$ci->parser->parse($view, $data, true);
+				$output = self::$ci->parser->parse($view_path . $view, $data, true);
 			} else 
-			{ 
-				$output = self::$ci->load->_ci_load(array('_ci_view' => $view_path . $view, '_ci_vars' => $data, '_ci_return' => true));
+			{  
+				$output = self::$ci->load->_ci_load(array('_ci_path' => $view_path . $view .'.php', '_ci_vars' => $data, '_ci_return' => true));
 			}
 			
 			// Put CI's view path back to the original

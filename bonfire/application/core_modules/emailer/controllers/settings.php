@@ -90,6 +90,8 @@ class Settings extends Admin_Controller {
 		Template::set(read_config('email'));
 		
 		Template::set('toolbar_title', 'Email Settings');
+		
+		Assets::add_module_js('emailer', 'emailer.js');
 	
 		Template::render();
 	}
